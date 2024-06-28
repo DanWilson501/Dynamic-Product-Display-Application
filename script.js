@@ -15,4 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
       displayProduct(currentIndex);
     })
     .catch(error => console.error('Error fetching data:', error));
+
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const productContainer = document.getElementById('product-container');
+  
+    function showLoading() {
+      loadingIndicator.style.display = 'block';
+      productContainer.style.display = 'none';
+    }
+  
+    function hideLoading() {
+      loadingIndicator.style.display = 'none';
+      productContainer.style.display = 'block';
+    }
 });

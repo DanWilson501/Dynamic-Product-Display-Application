@@ -1,0 +1,7 @@
+#loading-indicator {
+    font-size: 24px;
+    color: #007bff;
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
+  }
