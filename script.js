@@ -1,3 +1,5 @@
+// U5223-1368
+
 document.addEventListener('DOMContentLoaded', () => {
   const apiUrl = 'https://www.course-api.com/react-store-products';
   let products = [];
@@ -20,15 +22,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const productContainer = document.getElementById('product-container');
   
     function showLoading() {
-      loadingIndicator.style.display = 'block';
+      console.log("Show Loading");
+      loadingIndicator.style.display = 'flex';
       productContainer.style.display = 'none';
     }
   
     function hideLoading() {
+      console.log("Hide Loading");
       loadingIndicator.style.display = 'none';
       productContainer.style.display = 'block';
     }
-  
+    function fetchData() {
+      showLoading();
+      fetch(apiUrl)
+        .then(response => {
+          console.log("Response received");
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Data loaded");
+          products = data;
+          displayProduct(currentIndex);
+          hideLoading();
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          hideLoading();
+        });
+      }
 
   document.getElementById('prev-button').addEventListener('click', () => {
     if (currentIndex > 0) {
@@ -65,4 +89,5 @@ function displayProduct(index) {
 function formatPrice(price) {
   return `$${(price / 100).toFixed(2)}`;
 }
-});
+  fetchData();
+    });
